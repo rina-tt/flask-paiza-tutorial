@@ -1,0 +1,7 @@
+おはよう,ねこ
+さむい,いぬ
+Hello Flask!,flask
+やっほー,user
+yatta-,たぬき
+hu-,ya-
+nemui,nyanko

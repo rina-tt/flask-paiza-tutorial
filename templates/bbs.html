@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>1行掲示板</h1>
+    </div>
+
+    <form action="/result" method="post">
+        <div class="form-group">
+            <label for="article">投稿</label>
+            <input class="form-control" type="text" name="article">
+            <p></p>
+            <label for="name">名前</label>
+            <input class="form-control" type="text" name="name">
+        </div>
+        <button type="submit" class="btn btn-primary">送信する</button>
+    </form>
+
+    <h2>投稿一覧</h2>
+
+    <table class="table table-striped">
+    <tr><th>投稿</th><th>名前</th></tr>
+        {% for line in lines: %}
+            {% set column = line.rstrip().split(",") %}
+            <tr>
+                {% for item in column: %}
+                    <td>{{ item }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}
