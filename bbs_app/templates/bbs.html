@@ -19,12 +19,10 @@
 
     <table class="table table-striped">
     <tr><th>投稿</th><th>名前</th></tr>
-        {% for line in lines: %}
-            {% set column = line.rstrip().split(",") %}
+        {% for post in posts: %}
             <tr>
-                {% for item in column: %}
-                    <td>{{ item }}</td>
-                {% endfor %}
+                <tb>{{ post.username }}</tb>
+                <tb>{{ post.content }}</tb>
             </tr>
         {% endfor %}
     </table>

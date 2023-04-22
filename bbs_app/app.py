@@ -1,23 +1,21 @@
 from flask import Flask, request, render_template
-import codecs
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+
+db_uri = 'mysql+pymysql://root:@127.0.0.1/bbs_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+db = SQLAlchemy(app)
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.Text())
+    content = db.Column(db.Text())
 
 @app.route("/")
 def bbs():
 
-    file = codecs.open("articles.txt", "r", "utf-8")
-    lines = file.readlines()
-    file.close()
+    posts = Post.query.all()
 
-    return render_template("bbs.html", lines = lines)
-
-@app.route("/result", methods=["POST"])
-def result():
-    article = request.form["article"]
-    name = request.form["name"]
-
-    file = codecs.open("articles.txt", "a", "utf-8")
-    file.write(article + "," + name + "\n")
-    file.close()
-
-    return render_template("bbs_result.html", article = article, name = name)
+    return render_template("bbs.html", posts = posts)
